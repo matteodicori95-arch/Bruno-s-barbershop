@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bruno Barber's Shop | Barbiere a Parma</title>
+    <meta name="description" content="Bruno Barber's Shop a Parma. Scopri i servizi, la galleria e come prenotare il tuo appuntamento tramite l'app ufficiale.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Bruno Barber's Shop | Barbiere a Parma">
+    <meta property="og:description" content="Il tuo stile. La nostra precisione. Prenota ora il tuo appuntamento.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&q=80&w=1200">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Animazioni AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --bg-black: #0a0a0a;
+            --card-bg: #161616;
+            --text-white: #ffffff;
+            --text-gray: #b0b0b0;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg-black); 
+            color: var(--text-white); 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 1px; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; border-radius: 2px; }
+
+        .gold-text { color: var(--primary-gold); }
+        .section-padding { padding: 80px 8%; }
+        
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        .btn-gold { background: var(--primary-gold); color: black; }
+        .btn-gold:hover { background: transparent; border-color: var(--primary-gold); color: var(--primary-gold); }
+        .btn-outline { border-color: white; color: white; }
+        .btn-outline:hover { background: white; color: black; }
+
+        /* NAVBAR */
+        nav {
+            position: fixed; width: 100%; padding: 20px 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; transition: var(--transition);
+        }
+        nav.scrolled { background: rgba(0,0,0,0.95); padding: 12px 8%; border-bottom: 1px solid #222; }
+        .logo { font-size: 1.4rem; font-weight: 700; }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { font-size: 0.8rem; font-weight: 400; opacity: 0.8; }
+        .nav-links a:hover { opacity: 1; color: var(--primary-gold); }
+        .mobile-toggle { display: none; font-size: 1.5rem; }
+
+        /* HERO */
+        #home {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
+            background-color: #111; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 5rem); margin-bottom: 10px; }
+        .hero-content p { font-size: 1.1rem; letter-spacing: 3px; margin-bottom: 35px; color: var(--text-gray); }
+        .hero-btns { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+
+        /* CHI SIAMO */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-img { border: 1px solid var(--primary-gold); padding: 15px; position: relative; }
+        .about-img img { 
+            width: 100%; height: 500px; object-fit: cover; 
+            background: #222; 
+        }
+
+        /* SERVIZI */
+        #services { background: var(--card-bg); }
+        .services-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .service-item { 
+            padding: 40px; background: var(--bg-black); border: 1px solid #222; 
+            transition: var(--transition); text-align: center;
+        }
+        .service-item:hover { border-color: var(--primary-gold); transform: translateY(-5px); }
+        .service-item i { font-size: 2.5rem; color: var(--primary-gold); margin-bottom: 20px; }
+        .price-tag { display: block; margin-top: 15px; font-weight: 700; color: var(--primary-gold); font-size: 1.4rem; }
+
+        /* GALLERIA - LAYOUT INVARIATO */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .gallery-item { aspect-ratio: 1/1; overflow: hidden; background: #222; border: 1px solid #1a1a1a; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); filter: grayscale(30%); }
+        .gallery-item:hover img { transform: scale(1.05); filter: grayscale(0); }
+
+        /* MODALE PRENOTAZIONE */
+        .booking-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 2000; display: none;
+            justify-content: center; align-items: center;
+        }
+        .booking-modal {
+            background: var(--card-bg); padding: 40px; border: 1px solid var(--primary-gold);
+            max-width: 500px; width: 90%; text-align: center; position: relative;
+        }
+        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; cursor: pointer; }
+        .app-links { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; align-items: center; }
+        .app-btn {
+            width: 220px; height: 65px; display: flex; align-items: center; justify-content: center;
+            border-radius: 8px; overflow: hidden; transition: var(--transition);
+        }
+        .app-btn img { height: 100%; width: 100%; object-fit: contain; }
+        .app-btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
+
+        /* INFO SEZIONE */
+        .info-section { display: grid; grid-template-columns: 1fr 1fr; border
