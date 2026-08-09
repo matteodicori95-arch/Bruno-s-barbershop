@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bruno Barber's Shop | Barbiere a Parma</title>
+    <meta name="description" content="Bruno Barber's Shop a Parma. Scopri i servizi, la galleria e come prenotare il tuo appuntamento tramite l'app ufficiale.">
+    
+    <!-- Open Graph per Social -->
+    <meta property="og:title" content="Bruno Barber's Shop | Barbiere a Parma">
+    <meta property="og:description" content="Il tuo stile. La nostra precisione. Prenota ora il tuo appuntamento.">
+    <meta property="og:image" content="images/shop.jpg">
+    <meta property="og:url" content="https://tuo-username.github.io/bruno-barber">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Animazioni AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --bg-black: #0a0a0a;
+            --card-bg: #161616;
+            --text-white: #ffffff;
+            --text-gray: #b0b0b0;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg-black); 
+            color: var(--text-white); 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 1px; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* Helpers */
+        .gold-text { color: var(--primary-gold); }
+        .section-padding { padding: 80px 8%; }
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-gold { background: var(--primary-gold); color: black; }
+        .btn-gold:hover { background: transparent; border-color: var(--primary-gold); color: var(--primary-gold); }
+        .btn-outline { border-color: white; color: white; }
+        .btn-outline:hover { background: white; color: black; }
+
+        /* --- NAVBAR --- */
+        nav {
+            position: fixed; width: 100%; padding: 20px 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; transition: var(--transition);
+        }
+        nav.scrolled { background: rgba(0,0,0,0.95); padding: 12px 8%; border-bottom: 1px solid #222; }
+        .logo { font-size: 1.4rem; font-weight: 700; }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { font-size: 0.8rem; font-weight: 400; opacity: 0.8; }
+        .nav-links a:hover { opacity: 1; color: var(--primary-gold); }
+        .mobile-toggle { display: none; font-size: 1.5rem; }
+
+        /* --- HERO --- */
+        #home {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('images/hero.jpg') center/cover no-repeat;
+            /* Fallback se l'immagine manca */
+            background-color: #111; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 5rem); margin-bottom: 10px; }
+        .hero-content p { font-size: 1.1rem; letter-spacing: 3px; margin-bottom: 35px; color: var(--text-gray); }
+        .hero-btns { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+
+        /* --- CHI SIAMO --- */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-img { border: 1px solid var(--primary-gold); padding: 15px; position: relative; }
+        .about-img img { width: 100%; height: 450px; object-fit: cover; }
+
+        /* --- SERVIZI --- */
+        #services { background: var(--card-bg); }
+        .services-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .service-item { 
+            padding: 40px; background: var(--bg-black); border: 1px solid #222; 
+            transition: var(--transition); text-align: center;
+        }
+        .service-item:hover { border-color: var(--primary-gold); transform: translateY(-5px); }
+        .service-item i { font-size: 2.5rem; color: var(--primary-gold); margin-bottom: 20px; }
+        .price-tag { display: block; margin-top: 15px; font-weight: 700; color: var(--primary-gold); font-size: 1.1rem; }
+
+        /* --- GALLERIA --- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .gallery-item { aspect-ratio: 1/1; overflow: hidden; background: #222; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); filter: grayscale(40%); }
+        .gallery-item:hover img { transform: scale(1.05); filter: grayscale(0); }
+
+        /* --- RECENSIONI --- */
+        .reviews-cta { text-align: center; max-width: 600px; margin: 0 auto; }
+        .google-score { font-size: 1.5rem; margin: 15px 0; color: var(--primary-gold); }
+
+        /* --- INFO E ORARI --- */
+        .info-section { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #222; }
+        .map-container { min-height: 400px; width: 100%; }
+        .hours-container { padding: 60px 10%; background: var(--bg-black); }
+        .hour-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a1a1a; }
+        .hour-row span:last-child { color: var(--primary-gold); font-weight: 600; }
+
+        /* --- MODALE PRENOTAZIONE (DESKTOP) --- */
+        .booking-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 2000; display: none;
+            justify-content: center; align-items: center;
+        }
+        .booking-modal {
+            background: var(--card-bg); padding: 40px; border: 1px solid var(--primary-gold);
+            max-width: 500px; width: 90%; text-align: center; position: relative;
+        }
+        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; cursor: pointer; }
+        .app-links { display: flex; gap: 20px; justify-content: center; margin-top: 30px; }
+        .app-links a img { height: 50px; transition: var(--transition); }
+        .app-links a:hover { transform: scale(1.05); }
+
+        /* --- FOOTER --- */
+        footer { padding: 60px 8% 30px; background: #050505; text-align: center; border-top: 1px solid #111; }
+        .footer-logo { font-size: 1.8rem; margin-bottom: 20px; }
+        .social-icons { display: flex; justify-content: center; gap: 20px; margin: 25px 0; }
+        .social-icons a { 
+            width: 45px; height: 45px; border: 1px solid #333; display: flex; 
+            align-items: center; justify-content: center; border-radius: 50%; 
+        }
+        .social-icons a:hover { border-color: var(--primary-gold); color: var(--primary-gold); }
+        .legal { font-size: 0.75rem; color: #555; margin-top: 40px; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .about-grid, .info-section { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .mobile-toggle { display: block; }
+            .section-padding { padding: 60px 5%; }
+            .about-img img { height: 350px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MODALE PRENOTAZIONE -->
+    <div id="bookingOverlay" class="booking-overlay">
+        <div class="booking-modal">
+            <span class="close-modal" onclick="closeBooking()">&times;</span>
+            <h2 class="gold-text">Prenota il tuo stile</h2>
+            <p style="margin: 15px 0;">Utilizziamo l'app ufficiale per gestire i tuoi appuntamenti in modo semplice e veloce.</p>
+            <div class="app-links">
+                <a href="https://play.google.com/store/apps/details?id=app.brunobarber.working" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play">
+                </a>
+                <a href="https://apps.apple.com/it/app/bruno-barbers-shop/id6466412700" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge_IT_RGB_blk_100317.svg" alt="App Store">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="logo">BRUNO <span class="gold-text">BARBER</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Chi Siamo</a></li>
+            <li><a href="#services">Servizi</a></li>
+            <li><a href="#gallery">Galleria</a></li>
+            <li><a href="#contact">Dove Siamo</a></li>
+        </ul>
+        <button class="btn btn-gold btn-book" onclick="handleBooking()" style="padding: 10px 20px; font-size: 0.75rem;">PRENOTA ORA</button>
+        <div class="mobile-toggle" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="home">
+        <div class="hero-content" data-aos="fade-up">
+            <h1 class="gold-text">BRUNO BARBER'S SHOP</h1>
+            <p>IL TUO STILE. LA NOSTRA PRECISIONE.</p>
+            <div class="hero-btns">
+                <button onclick="handleBooking()" class="btn btn-gold">PRENOTA ORA</button>
+                <a href="#services" class="btn btn-outline">SCOPRI I SERVIZI</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CHI SIAMO -->
+    <section id="about" class="section-padding">
+        <div class="about-grid">
+            <div class="about-img" data-aos="fade-right">
+                <!-- Sostituire con images/shop.jpg -->
+                <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&q=80&w=800" alt="Interno Barber Shop">
+            </div>
+            <div class="about-text" data-aos="fade-left">
+                <h2 class="gold-text">L'esperienza premium a Parma</h2>
+                <p style="margin: 25px 0; font-size: 1.1rem; font-weight: 300;">
+                    Situato in Via Francesco Nullo, <strong>Bruno Barber's Shop</strong> non è solo un barbiere, ma un punto di riferimento per l'uomo che cerca cura nei dettagli e uno stile distintivo.
+                </p>
+                <p style="color: var(--text-gray);">
+                    Il nostro salone combina l'atmosfera classica della barberia italiana con le tecniche più moderne di taglio e cura della barba. Ogni servizio è un rituale dedicato al tuo benessere.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVIZI -->
+    <section id="services" class="section-padding">
+        <div style="text-align: center; margin-bottom: 50px;">
+            <h2 class="gold-text">I Nostri Servizi</h2>
+            <div style="width: 60px; height: 2px; background: var(--primary-gold); margin: 20px auto;"></div>
+        </div>
+        <div class="services-container">
+            <div class="service-item" data-aos="zoom-in">
+                <i class="fas fa-cut"></i>
+                <h3>Taglio Capelli</h3>
+                <p style="color: var(--text-gray); margin-top: 10px;">Taglio classico o moderno eseguito con massima precisione.</p>
+                <span class="price-tag">[Placeholder Prezzo]</span>
+            </div>
+            <div class="service-item" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-hand-sparkles"></i>
+                <h3>Modellatura Barba</h3>
+                <p style="color: var(--text-gray); margin-top: 10px;">Rifinitura con panno caldo e prodotti specifici premium.</p>
+                <span class="price-tag">Dai 5 ai 30€</span>
+            </div>
+            <div class="service-item" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-crown"></i>
+                <h3>Servizio VIP</h3>
+                <p style="color: var(--text-gray); margin-top: 10px;">Il pacchetto completo per capelli e barba impeccabili.</p>
+                <span class="price-tag">[Placeholder Prezzo]</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERIA -->
+    <section id="gallery" class="section-padding">
+        <h2 class="gold-text" style="text-align: center; margin-bottom: 40px;">Galleria</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&q=80&w=600" alt="Lavoro 1"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=600" alt="Lavoro 2"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1622286332618-f280208b00ba?auto=format&fit=crop&q=80&w=600" alt="Lavoro 3"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1593702295094-222442c332b1?auto=format&fit=crop&q=80&w=600" alt="Lavoro 4"></div>
+        </div>
+    </section>
+
+    <!-- RECENSIONI -->
+    <section id="reviews" class="section-padding" style="background: var(--card-bg);">
+        <div class="reviews-cta" data-aos="fade-up">
+            <h2 class="gold-text">Dicono di noi</h2>
+            <div class="google-score">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p style="margin-bottom: 30px;">Abbiamo una valutazione di <strong>4.8 stelle su Google</strong> grazie alla fiducia dei nostri clienti.</p>
+            <a href="https://www.google.com/search?q=bruno+barber+shop+parma#lrd=0x47806ad1f83c668d:0xc3d9e03d4090967,1" target="_blank" class="btn btn-outline">Leggi tutte le recensioni</a>
+        </div>
+    </section>
+
+    <!-- INFO E ORARI -->
+    <section id="contact" class="info-section">
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m10!1m3!1d2830.435427181057!2d10.3331191!3d44.8018318!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47806ad1f83c668d%3A0xc3d9e03d4090967!2sVia%20Francesco%20Nullo%2C%206%2C%2043125%20Parma%20PR!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit" 
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="hours-container" data-aos="fade-left">
+            <h2 class="gold-text">Orari di Apertura</h2>
+            <div style="margin: 30px 0;">
+                <div class="hour-row"><span>Lunedì</span><span>[INSERIRE ORARI]</span></div>
+                <div class="hour-row"><span>Martedì - Venerdì</span><span>[INSERIRE ORARI]</span></div>
+                <div class="hour-row"><span>Sabato</span><span>[INSERIRE ORARI]</span></div>
+                <div class="hour-row"><span>Domenica</span><span>Chiuso</span></div>
+            </div>
+            <p><strong>Indirizzo:</strong> Via Francesco Nullo 6, 43125 Parma PR</p>
+            <p style="margin: 15px 0;"><strong>Telefono:</strong> <a href="tel:+393205639026" class="gold-text">320 563 9026</a></p>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Via+Francesco+Nullo+6,+43125+Parma+PR" target="_blank" class="btn btn-gold" style="margin-top: 20px; width: 100%; text-align: center;">Come Arrivare</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">BRUNO <span class="gold-text">BARBER</span></div>
+        <p>Via Francesco Nullo 6, 43125 Parma (PR)</p>
+        
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+
+        <p class="legal">
+            &copy; <script>document.write(new Date().getFullYear())</script> Bruno Barber's Shop. All rights reserved. <br>
+            P.IVA [DA INSERIRE]
+        </p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inizializzazione Animazioni
+        AOS.init({ duration: 1000, once: true });
+
+        // Scroll Navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        // Logica Prenotazione Intelligente
+        function handleBooking() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Se Android
+            if (/android/i.test(userAgent)) {
+                window.location.href = "https://play.google.com/store/apps/details?id=app.brunobarber.working";
+            } 
+            // Se iOS (iPhone/iPad)
+            else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                window.location.href = "https://apps.apple.com/it/app/bruno-barbers-shop/id6466412700";
+            } 
+            // Se Desktop o altro
+            else {
+                document.getElementById('bookingOverlay').style.display = 'flex';
+            }
+        }
+
+        function closeBooking() {
+            document.getElementById('bookingOverlay').style.display = 'none';
+        }
+
+        // Menu Mobile Semplice
+        function toggleMobileMenu() {
+            const links = document.querySelector('.nav-links');
+            if (links.style.display === 'flex') {
+                links.style.display = 'none';
+            } else {
+                links.style.display = 'flex';
+                links.style.flexDirection = 'column';
+                links.style.position = 'absolute';
+                links.style.top = '100%';
+                links.style.left = '0';
+                links.style.width = '100%';
+                links.style.background = 'black';
+                links.style.padding = '20px';
+            }
+        }
+
+        // Chiudi modale se clicchi fuori
+        window.onclick = function(event) {
+            const modal = document.getElementById('bookingOverlay');
+            if (event.target == modal) closeBooking();
+        }
+    </script>
+</body>
+</html>
